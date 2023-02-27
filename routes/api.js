@@ -17,9 +17,6 @@ __path = process.cwd();
 require ('../settings.js')
 var express = require('express');
 var axios = require('axios');
-var randUserAgent = require('rand-user-agent')
-var { parsePhoneNumber } = require('awesome-phonenumber');
-var util = require('util');
 var qs = require('qs');
 var fetch = require('node-fetch');
 var cheerio = require('cheerio');
@@ -45,7 +42,6 @@ var {
 } = require('./../lib');
 
 _ = require('lodash')
-
 
 loghandler = {
 	noapikey:{
@@ -2104,19 +2100,6 @@ router.get('/other/hilih', async (req, res, next) => {
   res.json(loghandler.apikey)
 }
 })
-router.get('/other/ssweb', async (req, res, next) => {
-          var apikey = req.query.apikey
-       	var url = req.query.url
-       	if(!apikey) return res.json(loghandler.noapikey)
-        if(!url) return res.json({ status : false, creator : `${creator}`, message : "Where's the link?"})
-  if(listkey.includes(apikey)){
-lol = await getBuffer(`https://image.thum.io/get/fullpage/${url}`)
-await fs.writeFileSync(__path +'/tmp/ssweb.jpeg', lol)
-res.sendFile(__path +'/tmp/ssweb.jpeg')
-} else {
-  res.json(loghandler.apikey)
-}
-})
 router.get('/other/toanime', async (req, res, next) => {
           var apikey = req.query.apikey
        	var url = req.query.url
@@ -2126,96 +2109,6 @@ router.get('/other/toanime', async (req, res, next) => {
 lol = await getBuffer(`https://api.lolhuman.xyz/api/imagetoanime?apikey=${lolkey}&img=${url}`)
 await fs.writeFileSync(__path +'/tmp/toanime.jpeg', lol)
 res.sendFile(__path +'/tmp/toanime.jpeg')
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/iphone', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/iphone.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/iphone1', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/iphone1.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/iphone2', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/iphone2.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/iphone3', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/iphone3.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/iphone4', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/iphone4.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/iphone5', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/iphone5.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/iphone6', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/iphone6.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/virtex', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/virtex.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/virtex/ngazap', async (req, res, next) => {
-var apikey = req.query.apikey
-if(!apikey) return res.json(loghandler.noapikey)
-if(listkey.includes(apikey)){
-let inivirtex = fs.readFileSync('./virtex/ngazap.js')
-res.json({ status : true, creator : `${creator}`, result : `${inivirtex}` })
 } else {
   res.json(loghandler.apikey)
 }
@@ -2242,61 +2135,13 @@ if (!m1 && !m2 && !m3) return res.json({ status : false, creator : `${creator}`,
 if(listkey.includes(apikey)){
 total = `${encodeURI(m3)}`
 for (let i = 0; i < total; i++) {
-await fetch("https://ngl.link/api/submit", {
-  "headers": {
-    "accept": "*/*",
-    "accept-language": "en-US,en;q=0.7",
-    "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "same-origin",
-    "sec-gpc": "1",
-    "x-requested-with": "XMLHttpRequest"
-  },
-  "referrer": `https://ngl.link/${m1}`,
-  "referrerPolicy": "strict-origin-when-cross-origin",
-  "body": `username=${m1}&question=${m2}&deviceId=23d7346e-7d22-4256-80f3-dd4ce3fd8878&gameSlug=&referrer=`,
-  "method": "POST",
-  "mode": "cors",
-  "credentials": "include"
-}).catch((err) => res.json({ status : false, creator : `${creator}`, result: `Error, Please Try Again Later.` }))
-}
-var resultbes = (`Success Sending Messages NGL To UserName : ${m1} | Messages : ${m2} | Total : ${m3}`)
-res.json({ status : true, creator : `${creator}`, result: `${resultbes}` })
-} else {
-  res.json(loghandler.apikey)
-}
+await axios.post(`https://ngl.link/${m1}`, {
+    question: m2,
+    deviceId: "0cdf-23df-sdbr-02y4",
 })
-router.get('/other/secretospam', async (req, res, next) => {
-var apikey = req.query.apikey
-var m1 = req.query.id
-var m2 = req.query.message
-var m3 = req.query.total
-if(!apikey) return res.json(loghandler.noapikey)
-if (!m1 && !m2 && !m3) return res.json({ status : false, creator : `${creator}`, message : `Example : ID|messages|total\n\nHow to get ID? go to your secreto site then click developer tools and then send a message, after that back to developer tools u will see sendMessage header, press it and then press payload you will see your secreto ID.`})
-if(listkey.includes(apikey)){
-total = `${encodeURI(m3)}`
-for (let i = 0; i < total; i++) {
-await fetch("https://api.secreto.site/sendmsg", {
-  "headers": {
-    "accept": "*/*",
-    "accept-language": "en-US,en",
-    "content-type": "application/json",
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "same-site",
-    "sec-gpc": "1"
-  },
-  "referrer": "https://secreto.site/",
-  "referrerPolicy": "strict-origin-when-cross-origin",
-  "body": `{\"id\":\"${m1}\",\"message\":\"${m2}\"}`,
-  "method": "POST",
-  "mode": "cors",
-  "credentials": "omit"
-}).catch((err) => res.json({ status : false, creator : `${creator}`, result: `Error, Please Try Again Later.` }))
 }
-var resultnyes = (`Success Sending Messages Secreto To ID : ${m1} | Messages : ${m2} | Total : ${m3}`)
-res.json({ status : true, creator : `${creator}`, result: `${resultnyes}` })
+var result = (`Success Sending Messages NGL To UserName : ${m1} | Messages : ${m2} | Total : ${m3}`)
+res.json({ status : true, creator : `${creator}`, result })
 } else {
   res.json(loghandler.apikey)
 }
@@ -2340,20 +2185,6 @@ router.get('/other/covid-world', async (req, res, next) => {
          	console.log(e);
          	res.json(loghandler.error)
 })
-} else {
-  res.json(loghandler.apikey)
-}
-})
-router.get('/other/simi', async (req, res, next) => {
-          var apikey = req.query.apikey
-       	var kata = req.query.kata
-       	if(!apikey) return res.json(loghandler.noapikey)
-        if(listkey.includes(apikey)){
-       mek = await fetchJson(`https://api.simsimi.net/v2/?text=${kata}&lc=id`)
-       lols = mek.success
-      res.json({
-      status : true, creator : `${creator}`, message : lols
-	  })		  
 } else {
   res.json(loghandler.apikey)
 }
